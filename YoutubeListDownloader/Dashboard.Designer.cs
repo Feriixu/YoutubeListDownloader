@@ -146,9 +146,13 @@
             // trackBarParallelTasks
             // 
             this.trackBarParallelTasks.Location = new System.Drawing.Point(92, 51);
+            this.trackBarParallelTasks.Maximum = 20;
+            this.trackBarParallelTasks.Minimum = 1;
             this.trackBarParallelTasks.Name = "trackBarParallelTasks";
             this.trackBarParallelTasks.Size = new System.Drawing.Size(320, 45);
             this.trackBarParallelTasks.TabIndex = 7;
+            this.trackBarParallelTasks.Value = 1;
+            this.trackBarParallelTasks.ValueChanged += new System.EventHandler(this.TrackBarParallelTasks_ValueChanged);
             // 
             // label1
             // 
