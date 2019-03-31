@@ -37,8 +37,10 @@
             this.listBoxVideos = new System.Windows.Forms.ListBox();
             this.buttonStart = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.checkBoxDelete = new System.Windows.Forms.CheckBox();
+            this.checkBoxConvert = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.listBoxLog = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -122,7 +124,9 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.textBoxLog);
+            this.groupBox2.Controls.Add(this.listBoxLog);
+            this.groupBox2.Controls.Add(this.checkBoxDelete);
+            this.groupBox2.Controls.Add(this.checkBoxConvert);
             this.groupBox2.Controls.Add(this.buttonCancel);
             this.groupBox2.Controls.Add(this.buttonStart);
             this.groupBox2.Location = new System.Drawing.Point(370, 12);
@@ -132,26 +136,42 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2. Download";
             // 
-            // textBoxLog
+            // checkBoxDelete
             // 
-            this.textBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLog.Location = new System.Drawing.Point(6, 50);
-            this.textBoxLog.Multiline = true;
-            this.textBoxLog.Name = "textBoxLog";
-            this.textBoxLog.ReadOnly = true;
-            this.textBoxLog.Size = new System.Drawing.Size(406, 368);
-            this.textBoxLog.TabIndex = 2;
+            this.checkBoxDelete.AutoSize = true;
+            this.checkBoxDelete.Location = new System.Drawing.Point(132, 31);
+            this.checkBoxDelete.Name = "checkBoxDelete";
+            this.checkBoxDelete.Size = new System.Drawing.Size(165, 17);
+            this.checkBoxDelete.TabIndex = 3;
+            this.checkBoxDelete.Text = "Delete video after conversion";
+            this.checkBoxDelete.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxConvert
+            // 
+            this.checkBoxConvert.AutoSize = true;
+            this.checkBoxConvert.Location = new System.Drawing.Point(132, 14);
+            this.checkBoxConvert.Name = "checkBoxConvert";
+            this.checkBoxConvert.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxConvert.TabIndex = 3;
+            this.checkBoxConvert.Text = "Convert to audio";
+            this.checkBoxConvert.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(284, 19);
+            this.buttonCancel.Location = new System.Drawing.Point(304, 19);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(128, 25);
+            this.buttonCancel.Size = new System.Drawing.Size(108, 25);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // listBoxLog
+            // 
+            this.listBoxLog.FormattingEnabled = true;
+            this.listBoxLog.Location = new System.Drawing.Point(12, 49);
+            this.listBoxLog.Name = "listBoxLog";
+            this.listBoxLog.Size = new System.Drawing.Size(406, 368);
+            this.listBoxLog.TabIndex = 4;
             // 
             // Dashboard
             // 
@@ -178,11 +198,13 @@
         private System.Windows.Forms.ListBox listBoxVideos;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.TextBox textBoxAdd;
         private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.CheckBox checkBoxDelete;
+        private System.Windows.Forms.CheckBox checkBoxConvert;
+        private System.Windows.Forms.ListBox listBoxLog;
     }
 }
 
