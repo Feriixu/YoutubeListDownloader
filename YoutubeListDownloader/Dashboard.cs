@@ -64,48 +64,40 @@ namespace YoutubeListDownloader
 
             GetDownloadPath();
 
-            int maxConcurrency = 10;
-            using (SemaphoreSlim concurrencySemaphore = new SemaphoreSlim(maxConcurrency)) // Limit parallel Tasks
+            var tasks = new List<Task>();
+            Parallel.ForEach<string>(listBoxVideos.Items.OfType<string>().ToArray(), new ParallelOptions { MaxDegreeOfParallelism = trackBarParallelTasks.Value },
+            entry =>
             {
-                List<Task> tasks = new List<Task>();
+                tasks.Add(ProcessEntry(entry));
+            });
 
-                foreach (string video in listBoxVideos.Items)
-                {
-                    concurrencySemaphore.Wait();
+            //foreach (string entry in listBoxVideos.Items.OfType<string>().ToArray())
+            //{
+            //    tasks.Add(ProcessEntry(entry));
+            //};
 
-                    var t = Task.Factory.StartNew(() =>
-                    {
-                        try
-                        {
-                            // Check if it is a valid URI
-                            Uri uriResult;
-                            bool result = Uri.TryCreate(video, UriKind.Absolute, out uriResult)
-                                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-
-                            if (!result)
-                            {
-                                string searchResult = SearchVideo(video);
-                                SaveVideoToDisk(searchResult, checkBoxConvert.Checked, checkBoxDelete.Checked);
-                            }
-                            else
-                            {
-                                SaveVideoToDisk(video.ToString(), checkBoxConvert.Checked, checkBoxDelete.Checked);
-                            }
-                        }
-                        finally
-                        {
-                            concurrencySemaphore.Release();
-                        }
-                    });
-
-                    tasks.Add(t);
-                }
-
-                Task.WaitAll(tasks.ToArray());
-            }
+            Task.WaitAll(tasks.ToArray());
 
             watch.Stop();
             Log($"DONE! ~ {watch.ElapsedMilliseconds / 1000} seconds");
+        }
+
+        private async Task ProcessEntry(string entry)
+        {
+            // Check if it is a valid URI
+            Uri uriResult;
+            bool result = Uri.TryCreate(entry, UriKind.Absolute, out uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+            if (!result)
+            {
+                string searchResult = SearchVideo(entry);
+                SaveVideoToDisk(searchResult, checkBoxConvert.Checked, checkBoxDelete.Checked);
+            }
+            else
+            {
+                SaveVideoToDisk(entry.ToString(), checkBoxConvert.Checked, checkBoxDelete.Checked);
+            }
         }
 
         private void GetDownloadPath()
@@ -179,6 +171,6 @@ namespace YoutubeListDownloader
             labelParallelTasks.Text = trackBarParallelTasks.Value.ToString();
         }
 
-        
+
     }
 }
