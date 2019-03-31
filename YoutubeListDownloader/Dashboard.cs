@@ -65,16 +65,16 @@ namespace YoutubeListDownloader
             GetDownloadPath();
 
             var tasks = new List<Task>();
-            Parallel.ForEach<string>(listBoxVideos.Items.OfType<string>().ToArray(), new ParallelOptions { MaxDegreeOfParallelism = trackBarParallelTasks.Value },
-            entry =>
-            {
-                tasks.Add(ProcessEntry(entry));
-            });
-
-            //foreach (string entry in listBoxVideos.Items.OfType<string>().ToArray())
+            //Parallel.ForEach<string>(listBoxVideos.Items.OfType<string>().ToArray(), new ParallelOptions { MaxDegreeOfParallelism = trackBarParallelTasks.Value },
+            //entry =>
             //{
             //    tasks.Add(ProcessEntry(entry));
-            //};
+            //});
+
+            foreach (string entry in listBoxVideos.Items.OfType<string>().ToArray())
+            {
+                tasks.Add(ProcessEntry(entry));
+            };
 
             Task.WaitAll(tasks.ToArray());
 
