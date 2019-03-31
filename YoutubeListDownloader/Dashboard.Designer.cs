@@ -37,12 +37,16 @@
             this.listBoxVideos = new System.Windows.Forms.ListBox();
             this.buttonStart = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.trackBarParallelTasks = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.listBoxLog = new System.Windows.Forms.ListBox();
             this.checkBoxDelete = new System.Windows.Forms.CheckBox();
             this.checkBoxConvert = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.listBoxLog = new System.Windows.Forms.ListBox();
+            this.labelParallelTasks = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarParallelTasks)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonImport
@@ -124,6 +128,9 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.trackBarParallelTasks);
+            this.groupBox2.Controls.Add(this.labelParallelTasks);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.listBoxLog);
             this.groupBox2.Controls.Add(this.checkBoxDelete);
             this.groupBox2.Controls.Add(this.checkBoxConvert);
@@ -135,6 +142,30 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2. Download";
+            // 
+            // trackBarParallelTasks
+            // 
+            this.trackBarParallelTasks.Location = new System.Drawing.Point(92, 51);
+            this.trackBarParallelTasks.Name = "trackBarParallelTasks";
+            this.trackBarParallelTasks.Size = new System.Drawing.Size(320, 45);
+            this.trackBarParallelTasks.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Parallel Tasks:";
+            // 
+            // listBoxLog
+            // 
+            this.listBoxLog.FormattingEnabled = true;
+            this.listBoxLog.Location = new System.Drawing.Point(12, 114);
+            this.listBoxLog.Name = "listBoxLog";
+            this.listBoxLog.Size = new System.Drawing.Size(406, 303);
+            this.listBoxLog.TabIndex = 4;
             // 
             // checkBoxDelete
             // 
@@ -165,13 +196,14 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // listBoxLog
+            // labelParallelTasks
             // 
-            this.listBoxLog.FormattingEnabled = true;
-            this.listBoxLog.Location = new System.Drawing.Point(12, 49);
-            this.listBoxLog.Name = "listBoxLog";
-            this.listBoxLog.Size = new System.Drawing.Size(406, 368);
-            this.listBoxLog.TabIndex = 4;
+            this.labelParallelTasks.AutoSize = true;
+            this.labelParallelTasks.Location = new System.Drawing.Point(10, 76);
+            this.labelParallelTasks.Name = "labelParallelTasks";
+            this.labelParallelTasks.Size = new System.Drawing.Size(13, 13);
+            this.labelParallelTasks.TabIndex = 6;
+            this.labelParallelTasks.Text = "1";
             // 
             // Dashboard
             // 
@@ -187,6 +219,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarParallelTasks)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -205,6 +238,9 @@
         private System.Windows.Forms.CheckBox checkBoxDelete;
         private System.Windows.Forms.CheckBox checkBoxConvert;
         private System.Windows.Forms.ListBox listBoxLog;
+        private System.Windows.Forms.TrackBar trackBarParallelTasks;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelParallelTasks;
     }
 }
 
