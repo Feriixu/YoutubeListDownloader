@@ -37,16 +37,13 @@
             this.listBoxVideos = new System.Windows.Forms.ListBox();
             this.buttonStart = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.trackBarParallelTasks = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
             this.listBoxLog = new System.Windows.Forms.ListBox();
             this.checkBoxDelete = new System.Windows.Forms.CheckBox();
             this.checkBoxConvert = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelParallelTasks = new System.Windows.Forms.Label();
+            this.progressBarDownloads = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarParallelTasks)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonImport
@@ -70,7 +67,7 @@
             this.groupBox1.Controls.Add(this.buttonImport);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(352, 426);
+            this.groupBox1.Size = new System.Drawing.Size(352, 413);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "1. List";
@@ -110,7 +107,7 @@
             this.listBoxVideos.FormattingEnabled = true;
             this.listBoxVideos.Location = new System.Drawing.Point(6, 76);
             this.listBoxVideos.Name = "listBoxVideos";
-            this.listBoxVideos.Size = new System.Drawing.Size(340, 342);
+            this.listBoxVideos.Size = new System.Drawing.Size(340, 329);
             this.listBoxVideos.TabIndex = 1;
             // 
             // buttonStart
@@ -128,9 +125,6 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.trackBarParallelTasks);
-            this.groupBox2.Controls.Add(this.labelParallelTasks);
-            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.listBoxLog);
             this.groupBox2.Controls.Add(this.checkBoxDelete);
             this.groupBox2.Controls.Add(this.checkBoxConvert);
@@ -138,42 +132,26 @@
             this.groupBox2.Controls.Add(this.buttonStart);
             this.groupBox2.Location = new System.Drawing.Point(370, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(418, 426);
+            this.groupBox2.Size = new System.Drawing.Size(418, 413);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2. Download";
             // 
-            // trackBarParallelTasks
-            // 
-            this.trackBarParallelTasks.Location = new System.Drawing.Point(92, 51);
-            this.trackBarParallelTasks.Maximum = 20;
-            this.trackBarParallelTasks.Minimum = 1;
-            this.trackBarParallelTasks.Name = "trackBarParallelTasks";
-            this.trackBarParallelTasks.Size = new System.Drawing.Size(320, 45);
-            this.trackBarParallelTasks.TabIndex = 7;
-            this.trackBarParallelTasks.Value = 1;
-            this.trackBarParallelTasks.ValueChanged += new System.EventHandler(this.TrackBarParallelTasks_ValueChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Parallel Tasks:";
-            // 
             // listBoxLog
             // 
+            this.listBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxLog.FormattingEnabled = true;
-            this.listBoxLog.Location = new System.Drawing.Point(12, 114);
+            this.listBoxLog.Location = new System.Drawing.Point(6, 50);
             this.listBoxLog.Name = "listBoxLog";
-            this.listBoxLog.Size = new System.Drawing.Size(406, 303);
+            this.listBoxLog.Size = new System.Drawing.Size(406, 355);
             this.listBoxLog.TabIndex = 4;
             // 
             // checkBoxDelete
             // 
             this.checkBoxDelete.AutoSize = true;
+            this.checkBoxDelete.Enabled = false;
             this.checkBoxDelete.Location = new System.Drawing.Point(132, 31);
             this.checkBoxDelete.Name = "checkBoxDelete";
             this.checkBoxDelete.Size = new System.Drawing.Size(165, 17);
@@ -190,30 +168,32 @@
             this.checkBoxConvert.TabIndex = 3;
             this.checkBoxConvert.Text = "Convert to audio";
             this.checkBoxConvert.UseVisualStyleBackColor = true;
+            this.checkBoxConvert.CheckedChanged += new System.EventHandler(this.CheckBoxConvert_CheckedChanged);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Enabled = false;
             this.buttonCancel.Location = new System.Drawing.Point(304, 19);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(108, 25);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
-            // labelParallelTasks
+            // progressBarDownloads
             // 
-            this.labelParallelTasks.AutoSize = true;
-            this.labelParallelTasks.Location = new System.Drawing.Point(10, 76);
-            this.labelParallelTasks.Name = "labelParallelTasks";
-            this.labelParallelTasks.Size = new System.Drawing.Size(13, 13);
-            this.labelParallelTasks.TabIndex = 6;
-            this.labelParallelTasks.Text = "1";
+            this.progressBarDownloads.Location = new System.Drawing.Point(12, 431);
+            this.progressBarDownloads.Name = "progressBarDownloads";
+            this.progressBarDownloads.Size = new System.Drawing.Size(776, 15);
+            this.progressBarDownloads.TabIndex = 4;
             // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.progressBarDownloads);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -223,7 +203,6 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarParallelTasks)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -242,9 +221,7 @@
         private System.Windows.Forms.CheckBox checkBoxDelete;
         private System.Windows.Forms.CheckBox checkBoxConvert;
         private System.Windows.Forms.ListBox listBoxLog;
-        private System.Windows.Forms.TrackBar trackBarParallelTasks;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelParallelTasks;
+        private System.Windows.Forms.ProgressBar progressBarDownloads;
     }
 }
 
