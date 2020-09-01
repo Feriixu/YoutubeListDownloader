@@ -17,7 +17,7 @@ using YoutubeSearch;
 
 namespace YoutubeListDownloader
 {
-    public partial class Dashboard : Form
+    public partial class Dashboard : MetroFramework.Forms.MetroForm
     {
         string DownloadPath;
         int totalTasks;
@@ -33,7 +33,7 @@ namespace YoutubeListDownloader
         {
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "TextFiles (*.txt)|*.txt";
-            open.ShowDialog();
+            if (open.ShowDialog() != DialogResult.OK) return;
             var lines = File.ReadAllLines(open.FileName);
             foreach (var item in lines)
             {
@@ -65,8 +65,8 @@ namespace YoutubeListDownloader
         {
             if (!GetDownloadPath()) return;
 
-            buttonStart.Enabled = false;
-            buttonCancel.Enabled = true;
+            metroButtonStart.Enabled = false;
+            metroButtonCancel.Enabled = true;
 
             stop = Stopwatch.StartNew();
 
@@ -82,13 +82,30 @@ namespace YoutubeListDownloader
             threads = new List<Thread>();
             foreach (string entry in listBoxVideos.Items.OfType<string>().ToArray())
             {
-                Thread newThread = new Thread(() =>
+                if (metroCheckBoxPlaylistMode.Checked)
                 {
-                    Thread.CurrentThread.IsBackground = true;
-                    ProcessEntry(entry);
-                });
-                threads.Add(newThread);
-                newThread.Start();
+                    var videos = GetVideosFromPlaylist(entry);
+                    foreach (var video in videos)
+                    {
+                        Thread newThread = new Thread(() =>
+                        {
+                            Thread.CurrentThread.IsBackground = true;
+                            ProcessEntry(video.GetUri());
+                        });
+                        threads.Add(newThread);
+                        newThread.Start();
+                    }
+                }
+                else
+                {
+                    Thread newThread = new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        ProcessEntry(entry);
+                    });
+                    threads.Add(newThread);
+                    newThread.Start();
+                }
             };
         }
 
@@ -102,6 +119,7 @@ namespace YoutubeListDownloader
             if (!result)
             {
                 string searchResult = SearchVideo(entry);
+
                 SaveVideoToDisk(searchResult, checkBoxConvert.Checked, checkBoxDelete.Checked);
             }
             else
@@ -133,6 +151,13 @@ namespace YoutubeListDownloader
             VideoInformation firstVideo = items.SearchQuery(search, 1).FirstOrDefault();
 
             return firstVideo.Url;
+        }
+
+        private IEnumerable<YouTubeVideo> GetVideosFromPlaylist(string url)
+        {
+            var youTube = YouTube.Default; // starting point for YouTube actions
+            var videos = youTube.GetAllVideos(url); // gets a Video object with info about the video
+            return videos;
         }
 
         private void SaveVideoToDisk(string link, bool convert, bool delete)
@@ -187,8 +212,8 @@ namespace YoutubeListDownloader
                     stop.Stop();
                     Log($"Done! ~ {stop.Elapsed.TotalMinutes} Minutes");
 
-                    buttonStart.Enabled = true;
-                    buttonCancel.Enabled = false;
+                    metroButtonStart.Enabled = true;
+                    metroButtonCancel.Enabled = false;
                     checkBoxConvert.Enabled = true;
                     checkBoxDelete.Enabled = true;
                     MessageBox.Show($"Done! ~ {stop.Elapsed.TotalMinutes} Minutes");
@@ -220,7 +245,7 @@ namespace YoutubeListDownloader
 
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            buttonCancel.Enabled = false;
+            metroButtonCancel.Enabled = false;
 
             Log("ABORTING...");
             foreach (var thread in threads)
@@ -231,7 +256,13 @@ namespace YoutubeListDownloader
             progressBarDownloads.Update();
             stop.Stop();
             Log($"Stopped! ~ {stop.Elapsed.TotalMinutes} Minutes");
-            buttonStart.Enabled = true;
+            metroButtonStart.Enabled = true;
+        }
+
+        private void TextBoxAdd_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ButtonAdd_Click(sender, e);
         }
     }
 }
